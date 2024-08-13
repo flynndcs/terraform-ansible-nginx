@@ -1,0 +1,21 @@
+---
+- hosts: web
+  become: yes
+  tasks:
+
+    - name: Update dnf cache
+      dnf:
+        name: '*'
+        state: latest
+        update_cache: yes
+
+    - name: Install nginx
+      dnf:
+        name: nginx
+        state: present
+
+    - name: Ensure nginx is running and enabled on boot
+      service:
+        name: nginx
+        state: started
+        enabled: yes
